@@ -21,9 +21,9 @@ import java.util.Map;
 /**
  * 员工管理
  */
+@Slf4j
 @RestController
 @RequestMapping("/admin/employee")
-@Slf4j
 public class EmployeeController {
 
     @Autowired
