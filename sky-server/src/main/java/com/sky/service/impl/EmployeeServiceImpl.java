@@ -84,6 +84,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * 员工分页查询
+     *
      * @param dto
      * @return
      */
@@ -93,5 +94,41 @@ public class EmployeeServiceImpl implements EmployeeService {
         Page<Employee> pg = employeeMapper.selectPage(dto.getName());
         return new PageResult(pg.getTotal(), pg.getResult());
     }
+
+    @Override
+    public void updateEmployeeStatus(Integer status, Long id) {
+        Employee e = new Employee().builder()
+                .id(id)
+                .status(status)
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
+                .build();
+        employeeMapper.updateStatusById(e);
+    }
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @Override
+    public Employee getEmployeeById(Long id) {
+        return employeeMapper.selectById(id);
+    }
+
+    /**
+     * 修改员工
+     * @param dto
+     */
+    @Override
+    public void updateEmployee(EmployeeDTO dto) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(dto, employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeMapper.updateStatusById(employee);
+    }
+
+
 
 }
