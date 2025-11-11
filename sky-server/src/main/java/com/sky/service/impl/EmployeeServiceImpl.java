@@ -72,12 +72,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 补充默认密码并进行md5加密
         emp.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
         emp.setStatus(StatusConstant.ENABLE);
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
-
-        Long empID = BaseContext.getCurrentId();
-        emp.setCreateUser(empID);
-        emp.setUpdateUser(empID);
+//        emp.setCreateTime(LocalDateTime.now());
+//        emp.setUpdateTime(LocalDateTime.now());
+//
+//        Long empID = BaseContext.getCurrentId();
+//        emp.setCreateUser(empID);
+//        emp.setUpdateUser(empID);
 
         employeeMapper.insert(emp);
     }
@@ -100,14 +100,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee e = new Employee().builder()
                 .id(id)
                 .status(status)
-                .updateTime(LocalDateTime.now())
-                .updateUser(BaseContext.getCurrentId())
+//                .updateTime(LocalDateTime.now())
+//                .updateUser(BaseContext.getCurrentId())
                 .build();
         employeeMapper.updateStatusById(e);
     }
 
     /**
      * 根据id查询员工
+     *
      * @param id
      * @return
      */
@@ -118,17 +119,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * 修改员工
+     *
      * @param dto
      */
     @Override
     public void updateEmployee(EmployeeDTO dto) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(dto, employee);
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.updateStatusById(employee);
     }
-
 
 
 }
