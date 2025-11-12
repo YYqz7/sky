@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@Api(tags = "菜品相关接口")
+@Api(tags = "文件上传接口")
 @RequestMapping("/admin/common")
 public class CommonController {
 
