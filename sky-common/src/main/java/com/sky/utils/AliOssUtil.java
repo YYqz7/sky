@@ -7,6 +7,7 @@ import com.aliyun.oss.OSSException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+
 import java.io.ByteArrayInputStream;
 
 @Data
@@ -66,3 +67,10 @@ public class AliOssUtil {
         return stringBuilder.toString();
     }
 }
+
+
+/*
+  删除
+  TODO
+ */
+
