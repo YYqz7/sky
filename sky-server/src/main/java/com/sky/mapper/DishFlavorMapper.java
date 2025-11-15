@@ -28,4 +28,10 @@ public interface DishFlavorMapper {
      * @return
      */
     List<DishFlavor> selectByDishID(Long dishID);
+
+    /**
+     * 根据id删除
+     * @param id
+     */
+    void deletrByID(Long id);
 }

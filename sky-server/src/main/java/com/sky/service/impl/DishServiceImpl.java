@@ -106,4 +106,19 @@ public class DishServiceImpl implements DishService {
         dishVO.setFlavors(df);
         return dishVO;
     }
+
+    @Override
+    @Transactional
+    public void updateDish(DishDTO dto) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dto, dish);
+        dishMapper.update(dish);
+
+        dishFlavorMapper.deletrByID(dto.getId());
+        List<DishFlavor> flavors = dto.getFlavors();
+        if (flavors != null && !flavors.isEmpty()) {
+            flavors.forEach(dishFlavor -> dishFlavor.setDishId(dish.getId()));
+            dishFlavorMapper.insertDishFlavor(flavors);
+        }
+    }
 }
