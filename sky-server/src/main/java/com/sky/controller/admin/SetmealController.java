@@ -1,7 +1,7 @@
 package com.sky.controller.admin;
 
+import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
-import com.sky.entity.Setmeal;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.SetmealService;
@@ -38,13 +38,22 @@ public class SetmealController {
     /**
      * 新增套餐
      *
-     * @param setmeal
+     * @param dto
      * @return
      */
     @ApiOperation("新增套餐")
     @PostMapping
-    public Result addSetmeal(@RequestBody Setmeal setmeal) {
-        log.info("新增套餐: {}", setmeal);
+    public Result addSetmeal(@RequestBody SetmealDTO dto) {
+        log.info("新增套餐: {}", dto);
+        setmealService.addNewSetmeal(dto);
+        return Result.success();
+    }
+
+
+    @PostMapping("/status/{status}")
+    public Result modifySetmealStatus(@PathVariable Integer status, Long id) {
+        log.info("修改套餐状态: {}, {}", status, id);
+        setmealService.modifySetmealStatus(status, id);
         return Result.success();
     }
 }

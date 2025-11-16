@@ -1,5 +1,6 @@
 package com.sky.service;
 
+import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
 
@@ -12,4 +13,17 @@ public interface SetmealService {
      * @return
      */
     PageResult querySetmaelPage(SetmealPageQueryDTO dto);
+
+    /**
+     * 添加新套餐
+     * @param dto
+     */
+    void addNewSetmeal(SetmealDTO dto);
+
+    /**
+     * 修改套餐状态
+     * @param status
+     * @param id
+     */
+    void modifySetmealStatus(Integer status, Long id);
 }
