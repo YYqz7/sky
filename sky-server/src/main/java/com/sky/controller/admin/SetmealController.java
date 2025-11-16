@@ -49,7 +49,12 @@ public class SetmealController {
         return Result.success();
     }
 
-
+    /**
+     * 修改套餐状态
+     * @param status
+     * @param id
+     * @return
+     */
     @PostMapping("/status/{status}")
     public Result modifySetmealStatus(@PathVariable Integer status, Long id) {
         log.info("修改套餐状态: {}, {}", status, id);
