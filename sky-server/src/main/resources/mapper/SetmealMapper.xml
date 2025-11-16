@@ -81,5 +81,19 @@
         order by s.create_time desc
     </select>
 
+    <!--    根据id查询套餐-->
+    <select id="querySetmealByID" resultType="com.sky.entity.Setmeal">
+        select *
+        from setmeal
+        where id = #{id}
+    </select>
+
+    <!--    根据id查询套餐详情-->
+    <select id="querySetmealDishByID" resultType="com.sky.entity.SetmealDish">
+        select *
+        from setmeal_dish
+        where setmeal_id = #{id}
+    </select>
+
 
 </mapper>

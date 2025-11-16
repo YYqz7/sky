@@ -52,4 +52,20 @@ public interface SetmealMapper {
      * @param id
      */
     void modifySetmealStatus(Integer status, Long id);
+
+    /**
+     * 根据id查询套餐
+     *
+     * @param id
+     * @return
+     */
+    Setmeal querySetmealByID(Long id);
+
+    /**
+     * 根据id查询套餐详情
+     *
+     * @param id
+     * @return
+     */
+    List<SetmealDish> querySetmealDishByID(Long id);
 }
