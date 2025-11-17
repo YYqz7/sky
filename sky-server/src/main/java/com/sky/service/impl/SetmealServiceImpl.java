@@ -65,6 +65,7 @@ public class SetmealServiceImpl implements SetmealService {
 
     /**
      * 根据id查询套餐
+     *
      * @param id
      * @return
      */
@@ -76,5 +77,17 @@ public class SetmealServiceImpl implements SetmealService {
         BeanUtils.copyProperties(setmeal, setmealVO);
         setmealVO.setSetmealDishes(setmealDish);
         return setmealVO;
+    }
+
+    /**
+     * 批量删除套餐
+     *
+     * @param ids
+     */
+    @Override
+    @Transactional
+    public void deleteSetmealBatch(List<Long> ids) {
+        setmealMapper.deleteSetmealBatch(ids);
+        setmealMapper.deleteSetmealDishBatch(ids);
     }
 }

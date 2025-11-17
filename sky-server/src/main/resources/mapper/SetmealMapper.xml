@@ -60,6 +60,22 @@
         where id = #{id}
     </update>
 
+    <!--    批量删除套餐-->
+    <delete id="deleteSetmealBatch">
+        DELETE FROM setmeal
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <!--    批量删除套餐-->
+    <delete id="deleteSetmealDishBatch">
+        delete from setmeal_dish where setmeal_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+    </delete>
+
     <!--套餐分页查询-->
     <select id="selectPage" resultType="com.sky.vo.SetmealVO">
         select

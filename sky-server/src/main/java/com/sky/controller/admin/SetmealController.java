@@ -90,6 +90,7 @@ public class SetmealController {
     @DeleteMapping
     public Result deleteSetmealBatch(@RequestParam List<Long> ids) {
         log.info("批量删除套餐 id = {}", ids);
+        setmealService.deleteSetmealBatch(ids);
         return Result.success();
     }
 }

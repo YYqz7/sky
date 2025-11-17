@@ -68,4 +68,18 @@ public interface SetmealMapper {
      * @return
      */
     List<SetmealDish> querySetmealDishByID(Long id);
+
+    /**
+     * 批量删除套餐
+     *
+     * @param ids
+     */
+    void deleteSetmealBatch(List<Long> ids);
+
+    /**
+     * 批量删除套餐
+     *
+     * @param ids
+     */
+    void deleteSetmealDishBatch(List<Long> ids);
 }
