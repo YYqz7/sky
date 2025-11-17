@@ -1,5 +1,6 @@
 package com.sky.service;
 
+import com.sky.anno.AutoFill;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
@@ -46,4 +47,11 @@ public interface SetmealService {
      * @param ids
      */
     void deleteSetmealBatch(List<Long> ids);
+
+    /**
+     * 修改套餐
+     *
+     * @param dto
+     */
+    void modifySetmeal(SetmealDTO dto);
 }

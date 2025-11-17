@@ -82,4 +82,12 @@ public interface SetmealMapper {
      * @param ids
      */
     void deleteSetmealDishBatch(List<Long> ids);
+
+    /**
+     * 修改套餐表
+     *
+     * @param setmeal
+     */
+    @AutoFill(OperationType.UPDATE)
+    void modifySetmeal(Setmeal setmeal);
 }

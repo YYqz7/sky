@@ -60,6 +60,20 @@
         where id = #{id}
     </update>
 
+    <!--    修改套餐表-->
+    <update id="modifySetmeal">
+        UPDATE setmeal
+        SET category_id = #{categoryId},
+            name        = #{name},
+            price       = #{price},
+            status      = #{status},
+            description = #{description},
+            image       = #{image},
+            update_time = #{updateTime},
+            update_user = #{updateUser}
+        WHERE id = #{id}
+    </update>
+
     <!--    批量删除套餐-->
     <delete id="deleteSetmealBatch">
         DELETE FROM setmeal

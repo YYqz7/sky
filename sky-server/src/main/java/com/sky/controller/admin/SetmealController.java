@@ -93,5 +93,19 @@ public class SetmealController {
         setmealService.deleteSetmealBatch(ids);
         return Result.success();
     }
+
+    /**
+     * 修改套餐
+     *
+     * @param dto
+     * @return
+     */
+    @ApiOperation("修改套餐")
+    @PutMapping
+    public Result modifySetmeal(@RequestBody SetmealDTO dto) {
+        log.info("修改套餐: {}", dto);
+        setmealService.modifySetmeal(dto);
+        return Result.success();
+    }
 }
 
