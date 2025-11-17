@@ -106,4 +106,18 @@ public class DishController {
         List<Dish> des = dishService.getDishesByID(categoryId);
         return Result.success(des);
     }
+
+    /**
+     * 修改菜品状态
+     *
+     * @param status
+     * @return
+     */
+    @ApiOperation("修改菜品状态")
+    @PostMapping("/status/{status}")
+    public Result modifyDishStatus(@PathVariable Long status, @RequestParam long id) {
+        log.info("修改菜品状态: {}, {}", status, id);
+        dishService.modifyDishStatus(status, id);
+        return Result.success();
+    }
 }

@@ -50,8 +50,16 @@ public interface DishService {
 
     /**
      * 根据分类id查询菜品
+     *
      * @param categoryId
      * @return
      */
     List<Dish> getDishesByID(Long categoryId);
+
+    /**
+     * 修改菜品状态
+     *
+     * @param status
+     */
+    void modifyDishStatus(Long status, Long id);
 }
