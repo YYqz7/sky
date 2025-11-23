@@ -75,4 +75,34 @@
         select * from dish where category_id = #{categoryId}
     </select>
 
+
+    <select id="select" resultType="com.sky.entity.Dish">
+        SELECT
+        id, name, category_id, price, image, description,
+        status, create_time, update_time, create_user, update_user
+        FROM dish
+        <where>
+            <!-- 1. 菜品分类ID（非空则作为条件） -->
+            <if test="categoryId != null">
+                AND category_id = #{categoryId}
+            </if>
+            <!-- 2. 菜品状态（非空则作为条件，如查询起售中：status=1） -->
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <!-- 3. 可选：其他属性（根据业务需求扩展，如按名称模糊查询、价格筛选等） -->
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="price != null">
+                AND price = #{price}
+            </if>
+            <if test="description != null and description != ''">
+                AND description LIKE CONCAT('%', #{description}, '%')
+            </if>
+        </where>
+        <!-- 默认排序：按创建时间倒序（最新菜品在前） -->
+        ORDER BY create_time DESC
+    </select>
+
 </mapper>

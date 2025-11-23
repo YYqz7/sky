@@ -83,6 +83,8 @@ public interface DishMapper {
     List<Dish> getBySetmealID(Long setmealId);
 
     void modifyDishStatus(Long status, Long id);
+
+    List<Dish> select(Dish dish);
 }
 
 
