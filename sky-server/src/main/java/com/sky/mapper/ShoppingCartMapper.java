@@ -4,6 +4,8 @@ import com.sky.entity.ShoppingCart;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface ShoppingCartMapper {
 
 
@@ -15,4 +17,6 @@ public interface ShoppingCartMapper {
 
     @Update("update shopping_cart set number = #{number} where id = #{id}")
     void updateQuantityOfExistingProducts(ShoppingCart scWhether);
+
+    List<ShoppingCart> ViewCurrentUserShoppingCart(Long currentId);
 }

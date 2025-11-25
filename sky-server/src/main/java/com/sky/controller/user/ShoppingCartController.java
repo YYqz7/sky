@@ -2,25 +2,16 @@ package com.sky.controller.user;
 
 import com.sky.context.BaseContext;
 import com.sky.dto.ShoppingCartDTO;
-import com.sky.entity.Dish;
-import com.sky.entity.Setmeal;
 import com.sky.entity.ShoppingCart;
-import com.sky.mapper.DishMapper;
-import com.sky.mapper.SetmealMapper;
-import com.sky.mapper.ShoppingCartMapper;
 import com.sky.result.Result;
 import com.sky.service.ShoppingCartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -37,5 +28,13 @@ public class ShoppingCartController {
         log.info("添加购物车: {}", dto);
         shoppingCartService.add2ShoppingCart(dto);
         return Result.success();
+    }
+
+    @ApiOperation("查看用户购物车")
+    @GetMapping("/list")
+    public Result<List<ShoppingCart>> ViewCurrentUserShoppingCart() {
+        log.info("查看当前用户购物车user_id = {}", BaseContext.getCurrentId());
+        List<ShoppingCart> sc = shoppingCartService.ViewCurrentUserShoppingCart(BaseContext.getCurrentId());
+        return Result.success(sc);
     }
 }

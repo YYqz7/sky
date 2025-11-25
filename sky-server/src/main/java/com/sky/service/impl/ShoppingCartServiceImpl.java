@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -58,5 +59,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             scWhether.setNumber(scWhether.getNumber() + 1);
             shoppingCartMapper.updateQuantityOfExistingProducts(scWhether);
         }
+    }
+
+    @Override
+    public List<ShoppingCart> ViewCurrentUserShoppingCart(Long currentId) {
+        return shoppingCartMapper.ViewCurrentUserShoppingCart(currentId);
     }
 }

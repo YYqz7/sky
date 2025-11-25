@@ -20,4 +20,11 @@
     </select>
 
 
+    <select id="ViewCurrentUserShoppingCart" resultType="com.sky.entity.ShoppingCart">
+        select *
+        from shopping_cart
+        where user_id = #{currentId}
+    </select>
+
+
 </mapper>
