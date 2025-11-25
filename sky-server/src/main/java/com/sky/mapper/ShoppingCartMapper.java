@@ -19,4 +19,8 @@ public interface ShoppingCartMapper {
     void updateQuantityOfExistingProducts(ShoppingCart scWhether);
 
     List<ShoppingCart> ViewCurrentUserShoppingCart(Long currentId);
+
+    void clear(Long currentId);
+
+    void deleteCur(ShoppingCart curSC);
 }

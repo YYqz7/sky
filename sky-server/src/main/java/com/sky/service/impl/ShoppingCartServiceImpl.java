@@ -65,4 +65,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public List<ShoppingCart> ViewCurrentUserShoppingCart(Long currentId) {
         return shoppingCartMapper.ViewCurrentUserShoppingCart(currentId);
     }
+
+    @Override
+    public void clear() {
+        shoppingCartMapper.clear(BaseContext.getCurrentId());
+    }
+
+    @Override
+    public void deleteOne(ShoppingCartDTO dto) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(dto, shoppingCart);
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+        ShoppingCart curSC = shoppingCartMapper.checkUserShoppingCartContainsItem(shoppingCart);
+        if (curSC == null) {
+            throw new RuntimeException("curSC is null");
+        }
+        if (curSC.getNumber() > 1) {
+            curSC.setNumber(curSC.getNumber() - 1);
+            shoppingCartMapper.updateQuantityOfExistingProducts(curSC);
+        } else {
+            shoppingCartMapper.deleteCur(curSC);
+        }
+    }
 }
