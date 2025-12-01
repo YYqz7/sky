@@ -10,8 +10,7 @@
 
 
     <delete id="deleteCur">
-        delete
-        from shopping_cart
+        delete from shopping_cart
         <where>
             user_id = #{userId}
             <if test="setmealId != null">
