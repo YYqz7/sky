@@ -77,7 +77,6 @@
     </update>
 
 
-
     <select id="historicalOrderPaginationQuery" resultType="com.sky.vo.OrderHistoryVO">
         SELECT
         id,
@@ -117,7 +116,6 @@
     </select>
 
 
-
     <select id="countHistoricalOrder" resultType="java.lang.Long">
         select count(id)
         from orders
@@ -125,6 +123,13 @@
         <if test="orderHistoryDTO.status != null">
             and status = #{orderHistoryDTO.status}
         </if>
+    </select>
+
+
+    <select id="selectByOrderID" resultType="com.sky.vo.OrderHistoryVO">
+        select *
+        from orders
+        where id = #{orderID}
     </select>
 
 

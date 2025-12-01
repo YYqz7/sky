@@ -163,16 +163,23 @@ public class OrdersServiceImpl implements OrdersService {
         Long userID = BaseContext.getCurrentId();
 
         long total = ordersMapper.countHistoricalOrder(userID, orderHistoryDTO);
-        if(total == PAGINATION_QUERY_RESULT_IS_EMPTY) {
+        if (total == PAGINATION_QUERY_RESULT_IS_EMPTY) {
             return new PageResult(PAGINATION_QUERY_RESULT_IS_EMPTY, Collections.emptyList());
         }
 
         Integer status = orderHistoryDTO.getStatus();
         Integer pageSize = orderHistoryDTO.getPageSize();
-        Integer page =  (orderHistoryDTO.getPage() - 1) * pageSize;
+        Integer page = (orderHistoryDTO.getPage() - 1) * pageSize;
         List<OrderHistoryVO> orderList = ordersMapper.historicalOrderPaginationQuery(userID, page, pageSize, status);
         orderList.forEach(order -> order.setOrderDetailList(orderDetailMapper.selectByOrderID(order.getId())));
 
         return new PageResult(total, orderList);
+    }
+
+    @Override
+    public OrderHistoryVO inquireOrderDetails(Long orderID) {
+        OrderHistoryVO vo = ordersMapper.selectByOrderID(orderID);
+        vo.setOrderDetailList(orderDetailMapper.selectByOrderID(orderID));
+        return vo;
     }
 }

@@ -28,4 +28,6 @@ public interface OrdersMapper {
     List<OrderHistoryVO> historicalOrderPaginationQuery(Long userID, Integer page, Integer pageSize, Integer status);
 
     long countHistoricalOrder(Long userID, OrderHistoryDTO orderHistoryDTO);
+
+    OrderHistoryVO selectByOrderID(Long orderID);
 }
