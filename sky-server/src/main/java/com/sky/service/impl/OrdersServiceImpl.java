@@ -1,15 +1,17 @@
 package com.sky.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
+import com.sky.dto.OrderHistoryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.entity.*;
 import com.sky.exception.OrderBusinessException;
 import com.sky.mapper.*;
+import com.sky.result.PageResult;
 import com.sky.service.OrdersService;
 import com.sky.utils.WeChatPayUtil;
+import com.sky.vo.OrderHistoryVO;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +30,7 @@ import java.util.UUID;
 @Service
 public class OrdersServiceImpl implements OrdersService {
 
+    private static final Long PAGINATION_QUERY_RESULT_IS_EMPTY = 0L;
     @Autowired
     private OrdersMapper ordersMapper;
     @Autowired
@@ -153,5 +156,23 @@ public class OrdersServiceImpl implements OrdersService {
                 .build();
 
         ordersMapper.update(orders);
+    }
+
+    @Override
+    public PageResult historicalOrderInquiry(OrderHistoryDTO orderHistoryDTO) {
+        Long userID = BaseContext.getCurrentId();
+
+        long total = ordersMapper.countHistoricalOrder(userID, orderHistoryDTO);
+        if(total == PAGINATION_QUERY_RESULT_IS_EMPTY) {
+            return new PageResult(PAGINATION_QUERY_RESULT_IS_EMPTY, Collections.emptyList());
+        }
+
+        Integer status = orderHistoryDTO.getStatus();
+        Integer pageSize = orderHistoryDTO.getPageSize();
+        Integer page =  (orderHistoryDTO.getPage() - 1) * pageSize;
+        List<OrderHistoryVO> orderList = ordersMapper.historicalOrderPaginationQuery(userID, page, pageSize, status);
+        orderList.forEach(order -> order.setOrderDetailList(orderDetailMapper.selectByOrderID(order.getId())));
+
+        return new PageResult(total, orderList);
     }
 }

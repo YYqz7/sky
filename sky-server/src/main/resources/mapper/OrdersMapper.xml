@@ -75,4 +75,57 @@
         </set>
         where id = #{id}
     </update>
+
+
+
+    <select id="historicalOrderPaginationQuery" resultType="com.sky.vo.OrderHistoryVO">
+        SELECT
+        id,
+        number,
+        status,
+        user_id,
+        address_book_id,
+        order_time,
+        checkout_time,
+        pay_method,
+        pay_status,
+        amount,
+        remark,
+        phone,
+        address,
+        user_name,
+        consignee,
+        cancel_reason,
+        rejection_reason,
+        cancel_time,
+        estimated_delivery_time,
+        delivery_status,
+        delivery_time,
+        pack_amount,
+        tableware_number,
+        tableware_status
+        FROM orders
+        WHERE user_id = #{userID}
+        <!-- 状态筛选：若传入status不为null，则添加状态条件 -->
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <!-- 按下单时间倒序（最新订单在前） -->
+        ORDER BY order_time DESC
+        <!-- 分页：page为当前页，pageSize为每页条数 -->
+        LIMIT #{page}, #{pageSize}
+    </select>
+
+
+
+    <select id="countHistoricalOrder" resultType="java.lang.Long">
+        select count(id)
+        from orders
+        where user_id = #{userID}
+        <if test="orderHistoryDTO.status != null">
+            and status = #{orderHistoryDTO.status}
+        </if>
+    </select>
+
+
 </mapper>

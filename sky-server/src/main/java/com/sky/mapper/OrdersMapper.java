@@ -1,7 +1,11 @@
 package com.sky.mapper;
 
+import com.sky.dto.OrderHistoryDTO;
 import com.sky.entity.Orders;
+import com.sky.vo.OrderHistoryVO;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface OrdersMapper {
     void insert(Orders orders);
@@ -20,4 +24,8 @@ public interface OrdersMapper {
      * @param orders
      */
     void update(Orders orders);
+
+    List<OrderHistoryVO> historicalOrderPaginationQuery(Long userID, Integer page, Integer pageSize, Integer status);
+
+    long countHistoricalOrder(Long userID, OrderHistoryDTO orderHistoryDTO);
 }
