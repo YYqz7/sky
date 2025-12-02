@@ -71,7 +71,7 @@ public class OrdersController {
     /**
      * 历史订单查询
      *
-     * @param orderID
+     * @param id
      * @return
      */
     @ApiOperation("查询订单详情")
@@ -80,5 +80,30 @@ public class OrdersController {
         log.info("查询订单详情 orderID: {}", id);
         OrderHistoryVO vo = ordersService.inquireOrderDetails(id);
         return Result.success(vo);
+    }
+
+    /**
+     * 用户取消订单
+     *
+     * @return
+     */
+    @PutMapping("/cancel/{id}")
+    @ApiOperation("取消订单")
+    public Result cancel(@PathVariable("id") Long id) throws Exception {
+        ordersService.userCancelById(id);
+        return Result.success();
+    }
+
+    /**
+     * 再来一单
+     *
+     * @param id
+     * @return
+     */
+    @PostMapping("/repetition/{id}")
+    @ApiOperation("再来一单")
+    public Result repetition(@PathVariable Long id) {
+        ordersService.repetition(id);
+        return Result.success();
     }
 }
