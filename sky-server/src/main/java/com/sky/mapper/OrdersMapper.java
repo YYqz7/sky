@@ -66,10 +66,19 @@ public interface OrdersMapper {
     /**
      * 营业额数据统计
      *
-     * @param beginTime
-     * @param endTime
-     * @param completed
+     * @param end
+     * @param begin
+     * @param status
      * @return
      */
     Double turnoverStatistics(LocalDateTime begin, LocalDateTime end, Integer status);
+
+    /**
+     * 获取每天新用户
+     *
+     * @param end
+     * @param begin
+     * @return
+     */
+    Integer acquireNewUsersEveryDay(LocalDateTime begin, LocalDateTime end);
 }

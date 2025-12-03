@@ -148,7 +148,9 @@
             <if test="status != null">
                 and status = #{status}
             </if>
-            <if test="beginTime != null">
+
+
+                 ''<if test="beginTime != null">
                 and order_time &gt;= #{beginTime}
             </if>
             <if test="endTime != null">
@@ -171,6 +173,19 @@
             </if>
             <if test="status != null">
                 and status = #{status}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="acquireNewUsersEveryDay" resultType="java.lang.Integer">
+        select count(id) from user
+        <where>
+            <if test="begin != null">
+                and create_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and create_time &lt; #{end}
             </if>
         </where>
     </select>
