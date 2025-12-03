@@ -43,6 +43,7 @@ public interface OrdersService {
 
     /**
      * 查询订单详情
+     *
      * @param id
      * @return
      */
@@ -50,6 +51,7 @@ public interface OrdersService {
 
     /**
      * 各个状态的订单数量统计
+     *
      * @return
      */
     OrderStatisticsVO statistics();
@@ -99,4 +101,11 @@ public interface OrdersService {
      * @return
      */
     PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    /**
+     * 用户催单
+     *
+     * @param id
+     */
+    void reminder(Long id);
 }

@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 public class OrdersServiceImpl implements OrdersService {
 
     private static final Long PAGINATION_QUERY_RESULT_IS_EMPTY = 0L;
+    private static final int CUSTOMER_URGING_ORDER = 2;
     @Autowired
     private OrdersMapper ordersMapper;
     @Autowired
@@ -301,6 +302,25 @@ public class OrdersServiceImpl implements OrdersService {
         List<OrderVO> orderVOList = getOrderVOList(page);
 
         return new PageResult(page.getTotal(), orderVOList);
+    }
+
+    /**
+     * 用户催单
+     *
+     * @param id
+     */
+    @Override
+    public void reminder(Long id) {
+        OrderHistoryVO order = ordersMapper.selectByOrderID(id);
+        if (order == null) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        Map<Object, Object> mp = new HashMap<>();
+        mp.put("type", CUSTOMER_URGING_ORDER);
+        mp.put("orderId", id);
+        mp.put("content", "订单号: " + order.getNumber());
+        webSocketServer.sendToAllClient(JSON.toJSONString(mp));
     }
 
     private List<OrderVO> getOrderVOList(Page<Orders> page) {
