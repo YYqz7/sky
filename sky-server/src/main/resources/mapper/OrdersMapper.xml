@@ -133,7 +133,6 @@
     </select>
 
 
-
     <select id="pageQuery" resultType="com.sky.entity.Orders">
         select * from orders
         <where>
@@ -157,6 +156,23 @@
             </if>
         </where>
         order by order_time desc
+    </select>
+
+
+    <!--    Double turnoverStatistics(LocalDateTime begin, LocalDateTime end, Integer status);-->
+    <select id="turnoverStatistics" resultType="java.lang.Double">
+        select sum(amount) from orders
+        <where>
+            <if test="begin != null">
+                and order_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and order_time &lt; #{end}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
     </select>
 
 

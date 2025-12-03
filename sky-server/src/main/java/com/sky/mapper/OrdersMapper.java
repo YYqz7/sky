@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.sky.dto.OrderHistoryDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
-import com.sky.result.PageResult;
 import com.sky.vo.OrderHistoryVO;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,6 +14,7 @@ public interface OrdersMapper {
 
     /**
      * 根据状态统计订单数量
+     *
      * @param status
      */
     @Select("select count(id) from orders where status = #{status}")
@@ -23,6 +23,7 @@ public interface OrdersMapper {
 
     /**
      * 分页条件查询并按下单时间排序
+     *
      * @param ordersPageQueryDTO
      */
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
@@ -32,6 +33,7 @@ public interface OrdersMapper {
 
     /**
      * 根据订单号和用户id查询订单
+     *
      * @param orderNumber
      * @param userId
      */
@@ -40,6 +42,7 @@ public interface OrdersMapper {
 
     /**
      * 修改订单信息
+     *
      * @param orders
      */
     void update(Orders orders);
@@ -52,10 +55,21 @@ public interface OrdersMapper {
 
     /**
      * 根据订单状态和下单时间查询订单
+     *
      * @param status
      * @param orderTime
      * @return
      */
     @Select("select * from orders where status = #{status} and order_time < #{orderTime}")
     List<Orders> getByStatusAndOrderTime(Integer status, LocalDateTime orderTime);
+
+    /**
+     * 营业额数据统计
+     *
+     * @param beginTime
+     * @param endTime
+     * @param completed
+     * @return
+     */
+    Double turnoverStatistics(LocalDateTime begin, LocalDateTime end, Integer status);
 }
