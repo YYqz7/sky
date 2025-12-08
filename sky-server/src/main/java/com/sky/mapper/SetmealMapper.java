@@ -11,8 +11,16 @@ import com.sky.vo.SetmealVO;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SetmealMapper {
+
+    /**
+     * 根据条件统计套餐数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 
     /**
      * 动态条件查询套餐
